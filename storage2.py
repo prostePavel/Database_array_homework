@@ -6,6 +6,10 @@ products = [
     {
         "price": 30,
         "name": "BMW",
+    },
+    {
+        "price": 30,
+        "name": "Lambo",
     }
 ]
 
@@ -26,11 +30,28 @@ def add_product():
     products.append(product2)
 
 
+def cheapest_product():
+    cheapest_items = cheapest_item(products)
+
+    for item in cheapest_items:
+        print(f"{item['name']}, cena: {item['price']}$")
+
+    menu()
+
+
+def cheapest_item(items):
+    min_price = min(item['price'] for item in items)
+    return [item for item in items if item['price'] == min_price]
+
+
+
+
 def menu():
     print("Vítej ve skladu")
     print("###############\n")
     print("1. Výpis polože")
-    print("2. Přidání položky\n")
+    print("2. Přidání položky")
+    print("3. Zobrazit nejlevnější produkt\n")
 
     choice = int(input("Volba: "))
 
@@ -43,6 +64,12 @@ def menu():
     elif choice == 2:
         print("Přidání poožky:")
         add_product()
+        print("")
+        menu()
+
+    elif choice == 3:
+        print("nejlevnější produkt je:")
+        cheapest_product()
         print("")
         menu()
 
