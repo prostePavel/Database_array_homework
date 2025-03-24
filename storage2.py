@@ -4,16 +4,17 @@ products = [
         "price": 50
     },
     {
-        "price": 30,
         "name": "BMW",
-    },
-    {
         "price": 30,
-        "name": "Lambo",
+
     },
     {
-        "price": 50,
+        "name": "Lambo",
+        "price": 30
+    },
+    {
         "name": "Porsche",
+        "price": 50,
     }
 ]
 
@@ -24,8 +25,8 @@ def print_products():
 
 
 def add_product():
-    product_name = input("Název produktu:")
-    product_price = int(input("Víše ceny:"))
+    product_name = input("Název produktu:").strip()
+    product_price = int(input("Víše ceny:").strip())
     product = {
         'name': product_name,
         'price': product_price
@@ -58,6 +59,18 @@ def most_expensive_item(items):
     return [item for item in items if item['price'] == max_price]
 
 
+def search_products():
+    search = input("Vyhledat produkt: ").strip().lower()
+
+    for product in products:
+        if search in product['name'].lower():
+            print(f"{product['name']}, cena: {product['price']}$")
+            print("Hledat znovu?")
+            choice = input("(a/n)\n").strip().lower()
+            if choice == "a":
+                search_products()
+            else:
+                menu()
 
 
 def menu():
@@ -66,7 +79,8 @@ def menu():
     print("1. Výpis položek")
     print("2. Přidání položky")
     print("3. Zobrazit nejlevnější produkt")
-    print("4. Zobrazit nejdražší produkt\n")
+    print("4. Zobrazit nejdražší produkt")
+    print("5. Vyhledat produkt\n")
 
     choice = int(input("Volba: "))
 
@@ -90,6 +104,11 @@ def menu():
     elif choice == 4:
         print("Nejdražší produkt je:")
         most_expensive_product()
+        print("")
+        menu()
+    elif choice == 5:
+        print("hledat produkt:")
+        search_products()
         print("")
         menu()
 
