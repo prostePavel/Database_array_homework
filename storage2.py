@@ -35,13 +35,23 @@ def add_product():
 
     products.append(product)
 
+def configure_products():
+    configure = input("Změnit produkt: ")
+    for product in products:
+        if product['name'] == configure:
+            new_name = input("Název produktu: ").strip()
+            new_price = int(input("Víše ceny:").strip())
+
+            product['price'] = new_price
+            product['name'] = new_name
+            menu()
+
 def delete_product():
-    delete = input("Odstranit produkt:")
+    delete = input("Odstranit produkt: ")
     for product in products:
         if product['name'] == delete:
             products.remove(product)
             menu()
-
 
 def cheapest_product():
     minimum = float("inf")
@@ -93,10 +103,11 @@ def menu():
     print("###############\n")
     print("1. Výpis položek")
     print("2. Přidání položky")
-    print("3. odebrání položky")
-    print("4. Zobrazit nejlevnější produkt")
-    print("5. Zobrazit nejdražší produkt")
-    print("6. Vyhledat produkt\n")
+    print("3. Odebrání položky")
+    print("4. Změnění položky")
+    print("5. Zobrazit nejlevnější produkt")
+    print("6. Zobrazit nejdražší produkt")
+    print("7. Vyhledat produkt\n")
 
     choice = int(input("Volba: "))
 
@@ -119,22 +130,30 @@ def menu():
         menu()
 
     elif choice == 4:
+        print("")
+        configure_products()
+        print("")
+        menu()
+
+    elif choice == 5:
         print("Nejlevnější produkt je:")
         cheapest_product()
         print("")
         menu()
 
-    elif choice == 5:
+    elif choice == 6:
         print("Nejdražší produkt je:")
         most_expensive_product()
         print("")
         menu()
 
-    elif choice == 6:
+    elif choice == 7:
         print("")
         search_products()
         print("")
         menu()
+
+
 
 
     else:
