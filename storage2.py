@@ -34,33 +34,32 @@ def add_product():
 
     products.append(product)
 
-
 def cheapest_product():
-    cheapest_items = cheapest_item(products)
+    minimum = float("inf")
+    for product in products:
+        if product['price'] < minimum:
+            minimum = product['price']
 
-    for item in cheapest_items:
-        print(f"{item['name']}, cena: {item['price']}$")
-    menu()
-
-def cheapest_item(items):
-    min_price = min(item['price'] for item in items)
-    return [item for item in items if item['price'] == min_price]
-
+    print("nejlevnější produkt je:")
+    for product in products:
+        if minimum == product['price']:
+            print(f"{product['name']}, cena: {product['price']}$")
 
 def most_expensive_product():
-    most_expensive_items = most_expensive_item(products)
+    maximum = float("-inf")
+    for product in products:
+        if product['price'] > maximum:
+            maximum = product['price']
 
-    for item in most_expensive_items:
-        print(f"{item['name']}, cena: {item['price']}$")
-    menu()
-
-def most_expensive_item(items):
-    max_price = max(item['price'] for item in items)
-    return [item for item in items if item['price'] == max_price]
+    print("nejdražší produkt je: ")
+    for product in products:
+        if maximum == product['price']:
+            print(f"{product['name']}, cena: {product['price']}$")
 
 
 def search_products():
-    search = input("Vyhledat produkt: ").strip().lower()
+    print("hledat produkt: ")
+    search = input("").strip().lower()
 
     for product in products:
         if search in product['name'].lower():
@@ -71,7 +70,14 @@ def search_products():
                 search_products()
             else:
                 menu()
-
+        else:
+            print("hledaný produkt nenalezen.")
+            print("Hledat znovu?")
+            choice = input("(a/n)\n").strip().lower()
+            if choice == "a":
+                search_products()
+            else:
+                menu()
 
 def menu():
     print("Vítej ve skladu")
@@ -107,7 +113,7 @@ def menu():
         print("")
         menu()
     elif choice == 5:
-        print("hledat produkt:")
+        print("")
         search_products()
         print("")
         menu()
